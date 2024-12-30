@@ -1,0 +1,6 @@
+.table-bordered td.even {
+    border: 2px solid red;
+  }
+  .table-bordered td.hkd {
+    border: 2px solid red !important;
+  }
