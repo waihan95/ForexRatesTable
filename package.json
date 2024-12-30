@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "webpack serve --mode development",
+    "server": "node server.js",
     "build": "webpack --mode production",
     "serve": "node src/app.js"
   },
