@@ -3,8 +3,8 @@ import { renderTable } from './renderer.js';
 
 class App {
   constructor() {
-    this.apiKey = '9sOx2d1gWYZrKY0uD4hCbOMIQzLcL4KQ';
-    this.apiUrl = 'https://api.apilayer.com/fixer/latest';
+    this.apiKey = process.env.API_KEY;
+    this.apiUrl = process.env.API_URL;
   }
 
   async init() {
