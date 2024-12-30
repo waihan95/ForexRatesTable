@@ -1,6 +1,11 @@
-const path = require('path');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import Dotenv from 'dotenv-webpack';
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
   entry: './src/app.js',
   output: {
     filename: 'bundle.js',
@@ -18,8 +23,10 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new Dotenv(),
+  ],
   resolve: {
-
     fallback: {
       fs: false,
       path: false,
@@ -36,4 +43,3 @@ module.exports = {
   },
   mode: 'development',
 };
-
