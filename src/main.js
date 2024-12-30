@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'https://api.apilayer.com/fixer/latest';
-const API_KEY = 'YOUR_API_KEY';
+const API_KEY = '9sOx2d1gWYZrKY0uD4hCbOMIQzLcL4KQ';
 
 // Function to check if a number is even
 function isEven(value) {
