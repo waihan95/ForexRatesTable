@@ -6,7 +6,7 @@ npm run dev
 
 ## For testing the final build in production:
 npm run build
-npm run serve
+npm run server
 
 app.js                           // Frontend application logic
 api.js                             // API handling logic
