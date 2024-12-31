@@ -8,24 +8,59 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.resolve('public')));
+let forexData = null;
 
-app.get('/api/forex', async (req, res) => {
+app.use(cors({
+  origin: '',
+}));
+
+async function fetchForexRates() {
   try {
     const response = await fetch(process.env.API_URL, {
       headers: { apikey: process.env.API_KEY },
     });
 
     if (!response.ok) {
-      return res.status(response.status).send(response.statusText);
+      const errorMessage = await response.text();
+      console.error(`Error fetching forex rates: ${response.status} - ${response.statusText}`);
+      console.error(`API Response: ${errorMessage}`);
+      return;
     }
 
-    const data = await response.json();
-    res.json(data);
+    forexData = await response.json();
+
   } catch (error) {
-    console.error('Error proxying request:', error);
-    res.status(500).send('Server Error');
+    console.error('Error fetching forex rates:', error);
   }
+}
+
+setInterval(fetchForexRates, 60 * 1000);
+fetchForexRates();
+
+app.use(express.static(path.resolve('public')));
+
+app.get('/api/forex', async (req, res) => {
+  if (forexData) {
+    return res.json(forexData);
+  }
+
+  try {
+    const response = await fetch(process.env.API_URL, {
+      headers: { apikey: process.env.API_KEY },
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      console.error(`Error fetching forex rates: ${response.status} - ${response.statusText}`);
+      console.error(`API Response: ${errorMessage}`);
+      return res.status(response.status).send(errorMessage);
+    }
+  } catch (error) {
+    console.error('Error fetching forex rates:', error);
+    return res.status(500).send('Internal server error');
+  }
+
+  res.status(503).send('Data not available');
 });
 
 app.listen(PORT, () => {
