@@ -10,10 +10,6 @@ const PORT = process.env.PORT || 3000;
 
 let forexData = null;
 
-app.use(cors({
-  origin: '',
-}));
-
 async function fetchForexRates() {
   try {
     const response = await fetch(process.env.API_URL, {
@@ -34,7 +30,7 @@ async function fetchForexRates() {
   }
 }
 
-setInterval(fetchForexRates, 60 * 1000);
+setInterval(fetchForexRates, 10 * 60 * 1000);
 fetchForexRates();
 
 app.use(express.static(path.resolve('public')));
@@ -60,7 +56,7 @@ app.get('/api/forex', async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 
-  res.status(503).send('Data not available');
+  res.status(503).send('Data is currently being fetched. Please try again later.');
 });
 
 app.listen(PORT, () => {
