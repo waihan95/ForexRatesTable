@@ -16,3 +16,10 @@ export function renderTable(originalRates, modifiedRates) {
     tableBody.appendChild(row);
   });
 }
+
+export function animateContainer() {
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('container');
+    container.classList.add('container');
+  });
+}
