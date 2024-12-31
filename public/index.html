@@ -7,22 +7,31 @@
     <title>Forex Rates Table</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center">Forex Rates Table</h1>
-        <table class="table table-bordered mt-4">
-            <thead>
+    <div class="container">
+        <div class="card">
+          <div class="header">
+            <h1>Forex Rates Table</h1>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
                 <tr>
-                    <th>Currency</th>
-                    <th>Original Rate</th>
-                    <th>Modified Rate (+10.0002)</th>
+                  <th>Currency</th>
+                  <th>Original Rate</th>
+                  <th>Modified Rate (+10.0002)</th>
                 </tr>
-            </thead>
-            <tbody id="rates-table"></tbody>
-        </table>
-    </div>
+              </thead>
+              <tbody id="rates-table">
+                <!-- Dynamic data will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     <script src="bundle.js"></script>
 </body>
 
