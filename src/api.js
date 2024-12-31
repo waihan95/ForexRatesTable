@@ -1,8 +1,6 @@
-export async function fetchForexData(apiUrl, apiKey) {
+export async function fetchForexData() {
   try {
-    const response = await fetch(apiUrl, {
-      headers: { apikey: apiKey },
-    });
+    const response = await fetch('/api/forex');
     if (!response.ok) {
       throw new Error(`API Error: ${response.statusText}`);
     }

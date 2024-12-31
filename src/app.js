@@ -2,15 +2,14 @@ import { fetchForexData } from './api.js';
 import { renderTable } from './renderer.js';
 
 class App {
-  constructor() {
-    this.apiKey = process.env.API_KEY;
-    this.apiUrl = process.env.API_URL;
-  }
-
   async init() {
-    const rates = await fetchForexData(this.apiUrl, this.apiKey);
-    const modifiedRates = this.modifyRates(rates);
-    renderTable(rates, modifiedRates);
+    try {
+      const rates = await fetchForexData();
+      const modifiedRates = this.modifyRates(rates);
+      renderTable(rates, modifiedRates);
+    } catch (error) {
+      console.error('Error initializing app:', error);
+    }
   }
 
   modifyRates(rates) {
@@ -21,4 +20,3 @@ class App {
 }
 
 new App().init();
-
