@@ -1,9 +1,10 @@
 import { fetchForexData } from './api.js';
-import { renderTable } from './renderer.js';
+import { renderTable, animateContainer } from './renderer.js';
 
 class App {
   async init() {
     try {
+      animateContainer();
       const rates = await fetchForexData();
       const modifiedRates = this.modifyRates(rates);
       renderTable(rates, modifiedRates);
