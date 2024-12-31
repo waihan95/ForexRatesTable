@@ -12,7 +12,7 @@ export default {
     path: path.resolve(__dirname, 'public'),
   },
   devServer: {
-    static: './public',
+    static: {directory: path.resolve(__dirname, 'public'),},
     port: 3000,
   },
   module: {
