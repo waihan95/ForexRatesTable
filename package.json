@@ -1,7 +1,7 @@
 {
   "name": "forexratestable",
   "version": "1.0.0",
-  "description": "Develop a website that renders a forex rates table.",
+  "description": "A simple web application that renders a forex rates table by fetching data from a REST API.",
   "main": "index.js",
   "type": "module",
   "scripts": {
