@@ -40,11 +40,11 @@ PORT=3000
 - crypto-browserify: Provides cryptographic functionality for browser environments.
 - path-browserify: Adds compatibility for Node.js path module in the browser.
 
-### For active development, always run:
+## For active development, always run:
 npm run dev
 
-### For Production Build:
+## For Production Build:
 npm run build
 
-### Builds the application for production:
+## Builds the application for production:
 npm run server
