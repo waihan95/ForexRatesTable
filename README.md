@@ -3,16 +3,16 @@ A simple web application that renders a forex rates table by fetching data from 
 
 ## Setup
 1. Clone the repository
-git clone https://github.com/waihan95/ForexRatesTable
-cd forexratestable
+- git clone https://github.com/waihan95/ForexRatesTable
+- cd forexratestable
 
 2. Install Depencies
 npm install
 
 3. Create an .env file in the root directory and add your API key
-API_KEY=your_api_key_here
-API_URL=your_api_url_here
-PORT=3000
+- API_KEY=your_api_key_here
+- API_URL=your_api_url_here
+- PORT=3000
 
 ## Features
 - Fetches foreign exchange rates from a REST API.
