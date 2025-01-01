@@ -9,6 +9,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 let forexData = null;
+let lastFetchedTime = null;
+
+const CACHE_EXPIRY_MS = process.env.CACHE_EXPIRY_MS || 10 * 60 * 1000;
 
 async function fetchForexRates() {
   try {
@@ -23,40 +26,37 @@ async function fetchForexRates() {
       return;
     }
 
-    forexData = await response.json();
+    const data = await response.json();
+    return data;
 
   } catch (error) {
     console.error('Error fetching forex rates:', error);
+    return null;
   }
 }
 
-setInterval(fetchForexRates, 10 * 60 * 1000);
-fetchForexRates();
+async function getForexRates() {
+  const currentTime = Date.now();
+
+  if (forexData && lastFetchedTime && currentTime - lastFetchedTime < CACHE_EXPIRY_MS) {
+    console.log('Serving from cache');
+    return forexData;
+  }
+
+  console.log('Fetching new data from API');
+  forexData = await fetchForexRates();
+  lastFetchedTime = Date.now();
+  return forexData;
+}
 
 app.use(express.static(path.resolve('public')));
 
 app.get('/api/forex', async (req, res) => {
-  if (forexData) {
-    return res.json(forexData);
+  const data = await getForexRates();
+  if (data) {
+    return res.json(data);
   }
-
-  try {
-    const response = await fetch(process.env.API_URL, {
-      headers: { apikey: process.env.API_KEY },
-    });
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      console.error(`Error fetching forex rates: ${response.status} - ${response.statusText}`);
-      console.error(`API Response: ${errorMessage}`);
-      return res.status(response.status).send(errorMessage);
-    }
-  } catch (error) {
-    console.error('Error fetching forex rates:', error);
-    return res.status(500).send('Internal server error');
-  }
-
-  res.status(503).send('Data is currently being fetched. Please try again later.');
+  res.status(500).send('Failed to fetch forex rates.');
 });
 
 app.listen(PORT, () => {
